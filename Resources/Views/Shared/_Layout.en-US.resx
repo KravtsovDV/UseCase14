@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Index_Header" xml:space="preserve">
-    <value>Ласкаво просимо</value>
+  <data name="Layout_Header" xml:space="preserve">
+    <value>UseCase14</value>
   </data>
-  <data name="Index_MainText" xml:space="preserve">
-    <value>Дізнайтеся про створення веб-аплікацій за допомогою ASP.NET Core.</value>
+  <data name="Layout_PrivacyPage" xml:space="preserve">
+    <value>Privacy</value>
   </data>
-  <data name="Index_Title" xml:space="preserve">
-    <value>Тестова сторінка</value>
-  </data>
-  <data name="Privacy_MainText" xml:space="preserve">
-    <value>Використовуйте цю сторінку щоб пояснити свою політику конфіденційності.</value>
-  </data>
-  <data name="Privacy_Title" xml:space="preserve">
-    <value>Політика конфіденційності</value>
+  <data name="Layout_TestPage" xml:space="preserve">
+    <value>Test</value>
   </data>
 </root>

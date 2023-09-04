@@ -1,6 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@using UseCase14.Controllers
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<TestController> Localizer
+
+@{
+    ViewData["Title"] = Localizer["Privacy_Title"];
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<p>@Localizer["Privacy_MainText"]</p>

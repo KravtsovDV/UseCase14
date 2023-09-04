@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Razor;
+﻿using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 namespace UseCase14
 {
@@ -13,10 +13,27 @@ namespace UseCase14
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] { "en-US", "fr-FR", "uk-UA" };
+                options.SetDefaultCulture(supportedCultures[0])
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Adding our UrlRequestCultureProvider as first object in the list
+            var localizationOptions = app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+            localizationOptions.Value.RequestCultureProviders.Insert(0, new UrlRequestCultureProvider
+            {
+                Options = localizationOptions.Value
+            });
+
+            app.UseRequestLocalization(localizationOptions.Value);
+
             // Configure the HTTP request pipeline.
             if (env.IsDevelopment())
             {
@@ -39,8 +56,14 @@ namespace UseCase14
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Test}/{action=Index}/{id?}");
+                        name: "LocalizedDefault",
+                        pattern: "{culture}/{controller=Test}/{action=Index}"
+                );
+
+                endpoints.MapControllerRoute(
+                      name: "default",
+                      pattern: "{*catchall}",
+                      defaults: new { culture = localizationOptions.Value.DefaultRequestCulture.UICulture.Name, controller = "Test", action = "Index" });
             });
         }
     }
