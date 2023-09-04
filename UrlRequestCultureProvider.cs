@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Localization;
 
 namespace UseCase14
 {
@@ -23,13 +24,20 @@ namespace UseCase14
             // is called, so this example simply assumes the locale will always 
             // be located in the first segment of a path, like in /en-US/Test/Index
             var parts = url.Value?.Split('/') ?? new string[] { "" };
-            if (parts.Length < 2 || !LocalePattern.IsMatch(parts[1]))
+            if (parts.Length >= 2 && LocalePattern.IsMatch(parts[1]))
             {
-                return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(Options?.DefaultRequestCulture.Culture.Name, Options?.DefaultRequestCulture.UICulture.Name));
+                var culture = parts[1];
+                foreach (var locale in Options?.SupportedCultures ?? new List<CultureInfo>())
+                {
+                    if (locale.Name.StartsWith(culture))
+                    {
+                        culture = locale.Name;
+                        return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(culture));
+                    }
+                }
             }
 
-            var culture = parts[1];
-            return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(culture));
+            return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(Options?.DefaultRequestCulture.Culture.Name, Options?.DefaultRequestCulture.UICulture.Name));
         }
     }
 }

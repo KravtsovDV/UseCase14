@@ -1,12 +1,63 @@
 ﻿@using UseCase14.Controllers
 @using Microsoft.Extensions.Localization;
+@using System.Globalization;
+@using UnitsNet;
 @inject IStringLocalizer<TestController> Localizer
 
 @{
     ViewData["Title"] = Localizer["Index_Title"];
+
+    DateTime datetime = DateTime.Now;
+
+    int var1 = -1024652;
+    int var2 = 1024652588;
+    double var3 = -6755334.565446;
+    double var4 = 5334.565446;
+
+    Length someLength = Length.FromMeters(1234.567);
+    Volume someVolume = Volume.FromLiters(1234.567);
+    Mass someMass = Mass.FromKilograms(1234.567);
 }
 
 <div class="text-center">
     <h1 class="display-4">@Localizer["Index_Header"]</h1>
     <p>@Localizer["Index_MainText"]</p>
+    <br />
+
+    <p>@datetime.ToString(CultureInfo.CurrentCulture)</p>
+    <p>@datetime.ToLongDateString()</p>
+    <p>@datetime.ToLongTimeString()</p>
+    <p>@datetime.ToShortTimeString()</p>
+</div>
+
+<table class="table">
+    <thead></thead>
+    <tbody>
+        <tr>
+            <td>@var1.ToString("n", CultureInfo.CurrentCulture)</td>
+            <td>@var1.ToString("e4", CultureInfo.CurrentCulture)</td>
+            <td>@var1.ToString("C", CultureInfo.CurrentCulture)</td>
+        </tr>
+        <tr>
+            <td>@var2.ToString("n", CultureInfo.CurrentCulture)</td>
+            <td>@var2.ToString("e4", CultureInfo.CurrentCulture)</td>
+            <td>@var2.ToString("C", CultureInfo.CurrentCulture)</td>
+        </tr>
+        <tr>
+            <td>@var3.ToString("n", CultureInfo.CurrentCulture)</td>
+            <td>@var3.ToString("e4", CultureInfo.CurrentCulture)</td>
+            <td>@var3.ToString("C", CultureInfo.CurrentCulture)</td>
+        </tr>
+        <tr>
+            <td>@var4.ToString("n", CultureInfo.CurrentCulture)</td>
+            <td>@var4.ToString("e4", CultureInfo.CurrentCulture)</td>
+            <td>@var4.ToString("C", CultureInfo.CurrentCulture)</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-center">
+    <p>@someLength.ToLocalizedString(CultureInfo.CurrentCulture)</p>
+    <p>@someVolume.ToLocalizedString(CultureInfo.CurrentCulture)</p>
+    <p>@someMass.ToLocalizedString(CultureInfo.CurrentCulture)</p>
 </div>

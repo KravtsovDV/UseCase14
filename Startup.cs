@@ -16,7 +16,7 @@ namespace UseCase14
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                var supportedCultures = new[] { "en-US", "fr-FR", "uk-UA" };
+                var supportedCultures = new[] { "en-US", "fr-FR", "uk-UA", "de-DE" };
                 options.SetDefaultCulture(supportedCultures[0])
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures);
