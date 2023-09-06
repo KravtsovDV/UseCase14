@@ -7,7 +7,7 @@ namespace UseCase14
     public class UrlRequestCultureProvider : RequestCultureProvider
     {
         private static readonly Regex LocalePattern = new Regex(@"^[a-z]{2}(-[a-z]{2,4})?$",
-                                                            RegexOptions.IgnoreCase);
+                                                            RegexOptions.IgnoreCase, new TimeSpan(0, 0, 0, 0, 300);
 
         public override Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
         {
