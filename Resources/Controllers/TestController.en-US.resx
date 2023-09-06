@@ -123,6 +123,9 @@
   <data name="Index_MainText" xml:space="preserve">
     <value>Learn about building Web apps with ASP.NET Core.</value>
   </data>
+  <data name="Index_TableCaption" xml:space="preserve">
+    <value>Example of numbers and currencies formatting depending on culture</value>
+  </data>
   <data name="Index_Title" xml:space="preserve">
     <value>Test Page</value>
   </data>
