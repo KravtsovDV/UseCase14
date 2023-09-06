@@ -27,13 +27,12 @@ namespace UseCase14
             if (parts.Length >= 2 && LocalePattern.IsMatch(parts[1]))
             {
                 var culture = parts[1];
-                foreach (var locale in Options?.SupportedCultures ?? new List<CultureInfo>())
+
+                CultureInfo? locale = Options?.SupportedCultures?.FirstOrDefault(x => x.Name.StartsWith(culture));
+                if (locale is not null)
                 {
-                    if (locale.Name.StartsWith(culture))
-                    {
-                        culture = locale.Name;
-                        return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(culture));
-                    }
+                    culture = locale.Name;
+                    return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(culture));
                 }
             }
 
